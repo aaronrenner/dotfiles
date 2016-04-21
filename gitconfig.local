@@ -1,0 +1,5 @@
+[user]
+  name = Aaron Renner
+  email = aaron.renner@gmail.com
+[alias]
+  lol = log --oneline --graph --all --decorate
