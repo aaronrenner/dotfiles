@@ -10,5 +10,10 @@ brew link openssl --force
 fancy_echo "Installing tmuxinator"
 gem install tmuxinator
 
+fancy_echo "Installing tmuxinator auto completion"
+curl -fsS \
+  "https://raw.githubusercontent.com/tmuxinator/tmuxinator/master/completion/tmuxinator.zsh" \
+  -o ~/.bin/tmuxinator.zsh
+
 fancy_echo "Installing kiex"
 \curl -sSL https://raw.githubusercontent.com/taylor/kiex/master/install | bash -s

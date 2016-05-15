@@ -7,3 +7,6 @@ export PATH="$HOME/.bin:$PATH"
 eval "$(rbenv init - --no-rehash)"
 
 test -s "$HOME/.kiex/scripts/kiex" && source "$HOME/.kiex/scripts/kiex"
+
+#Tmuxinator auto completion
+source ~/.bin/tmuxinator.zsh
