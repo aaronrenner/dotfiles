@@ -4,6 +4,9 @@ fancy_echo "Installing additional tools..."
 brew install nvm
 brew install reattach-to-user-namespace
 
+fancy_echo "Linking openssl in El Capitan"
+brew link openssl --force
+
 fancy_echo "Installing tmuxinator"
 gem install tmuxinator
 
