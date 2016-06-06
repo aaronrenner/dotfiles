@@ -6,3 +6,6 @@ brew install reattach-to-user-namespace
 
 fancy_echo "Installing tmuxinator"
 gem install tmuxinator
+
+fancy_echo "Installing kiex"
+\curl -sSL https://raw.githubusercontent.com/taylor/kiex/master/install | bash -s
