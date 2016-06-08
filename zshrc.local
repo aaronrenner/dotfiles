@@ -5,3 +5,5 @@ export NVM_DIR=~/.nvm
 
 export PATH="$HOME/.bin:$PATH"
 eval "$(rbenv init - --no-rehash)"
+
+test -s "$HOME/.kiex/scripts/kiex" && source "$HOME/.kiex/scripts/kiex"
