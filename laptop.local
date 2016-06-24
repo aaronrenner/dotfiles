@@ -1,7 +1,14 @@
 #!/bin/sh
 
+git_clone_or_update(){
+  if [ -d $2 ]; then
+    git -C $2 pull
+  else
+    git clone $1 $2
+  fi
+}
+
 fancy_echo "Installing additional tools..."
-brew install nvm
 brew install reattach-to-user-namespace
 
 fancy_echo "Linking openssl in El Capitan"
@@ -15,5 +22,6 @@ curl -fsS \
   "https://raw.githubusercontent.com/tmuxinator/tmuxinator/master/completion/tmuxinator.zsh" \
   -o ~/.bin/tmuxinator.zsh
 
-fancy_echo "Installing kiex"
-\curl -sSL https://raw.githubusercontent.com/taylor/kiex/master/install | bash -s
+fancy_echo "Installing asdf (and build dependencies)"
+brew install automake autoconf openssl libyaml readline libxslt libtool unixodbc
+git_clone_or_update https://github.com/asdf-vm/asdf.git ~/.asdf
