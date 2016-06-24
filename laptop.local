@@ -25,7 +25,7 @@ curl -fsS \
 fancy_echo "Installing asdf (and build dependencies)"
 brew install automake autoconf openssl libyaml readline libxslt libtool unixodbc
 git_clone_or_update https://github.com/asdf-vm/asdf.git ~/.asdf
-~/.asdf/bin/asdf plugin-add erlang https://github.com/asdf-vm/asdf-erlang.git
-~/.asdf/bin/asdf plugin-add elixir https://github.com/asdf-vm/asdf-elixir.git
-~/.asdf/bin/asdf plugin-add ruby https://github.com/asdf-vm/asdf-ruby.git
-~/.asdf/bin/asdf plugin-add nodejs https://github.com/asdf-vm/asdf-nodejs.git
+~/.asdf/bin/asdf plugin-add erlang https://github.com/asdf-vm/asdf-erlang.git || true
+~/.asdf/bin/asdf plugin-add elixir https://github.com/asdf-vm/asdf-elixir.git || true
+~/.asdf/bin/asdf plugin-add ruby https://github.com/asdf-vm/asdf-ruby.git || true
+~/.asdf/bin/asdf plugin-add nodejs https://github.com/asdf-vm/asdf-nodejs.git || true
