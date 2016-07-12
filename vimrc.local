@@ -26,3 +26,6 @@ endif
 function! g:projectionist_transformations.dot_to_underscore(input, o) abort
   return tr(a:input, '.', '_')
 endfunction
+
+" Make vim-test commands execute with tslime
+let test#strategy = "tslime"
