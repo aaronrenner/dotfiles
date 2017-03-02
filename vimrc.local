@@ -29,3 +29,11 @@ endfunction
 
 " Make vim-test commands execute with tslime
 let test#strategy = "tslime"
+
+" Safely allow project-specific vimrc (check for `.git/safe`)
+" From https://github.com/thoughtbot/dotfiles/pull/435/files
+if isdirectory(getcwd() . "/.git/safe")
+  echo "Will load local .vimrc if present"
+  set secure
+  set exrc
+endif
