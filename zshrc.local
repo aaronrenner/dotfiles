@@ -5,9 +5,13 @@ export PATH="$HOME/.bin:$PATH"
 #Tmuxinator auto completion
 test -s "$HOME/.bin/tmuxinator.zsh" && source ~/.bin/tmuxinator.zsh
 
+# Use bash completions
+autoload bashcompinit
+bashcompinit
+
 # Asdf version manager
 test -s "$HOME/.asdf/asdf.sh" && source ~/.asdf/asdf.sh
-# test -s "$HOME/.asdf/completions/asdf.bash" && source ~/.asdf/completions/asdf.bash
+test -s "$HOME/.asdf/completions/asdf.bash" && source ~/.asdf/completions/asdf.bash
 
 # Leave commented out because otherwise laptop script will try to re-add it and
 # we're using asdf instead
