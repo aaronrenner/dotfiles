@@ -33,38 +33,53 @@ This will create symlinks for config files in my home directory.
 
 I can safely run `rcup` multiple times to update.
 
+
+Installing on a new laptop
+--------------------------
+
+The majority of the laptop set up is automated with the
+[thoughtbot/laptop](https://github.com/thoughtbot/laptop) script. Here are the steps
+
+    mkdir ~/projects
+    cd ~/projects
+    git clone git://github.com/aaronrenner/dotfiles.git
+    ln -s ~/projects/dotfiles/.laptop.local
+
+Then fetch the laptop script
+
+    curl --remote-name https://raw.githubusercontent.com/thoughtbot/laptop/master/mac
+
+Since this setup uses asdf instead of rbenv for managing rubies, run `vim mac` and remove
+the pieces that deal with installing ruby and rbenv.
+
+When you're finished, run
+
+    sh mac 2>&1 | tee ~/laptop.log
+
+Now the laptop has the nessecary dependences installed and you can run rcup to install
+the rest of the dotfiles.
+
+    git clone git://github.com/thoughtbot/dotfiles.git ~/projects/thoughtbot-dotfiles
+    env RCRC=$HOME/projects/dotfiles/rcrc rcup
+
+If all goes well, you're ready to go. 🎉
+
+
 What's in it?
 -------------
 
-[vim](http://www.vim.org/) configuration:
-
-* [GitHub color scheme](https://github.com/croaky/vim-colors-github)
-* [YouCompleteMe](https://github.com/Valloric/YouCompleteMe) for
-  tab completion.
-* [vim-go](https://github.com/fatih/vim-go) for
-  syntax highlighting, documentation, and more for Go.
-* [Emmet.vim](https://github.com/mattn/emmet-vim) for expanding CSS selectors
-  into HTML when writing markup
-* [words-to-avoid](https://github.com/nicholaides/words-to-avoid.vim) for
-  highlighting weasel words in my Markdown writing.
-
 [git](http://git-scm.com/) configuration:
 
-* `l` alias for tight, colored, log output.
+* `lol` alias for fancy graph of commits
 * My name and email.
 
 [zsh](http://zsh.sourceforge.net/FAQ/zshfaq01.html) configuration and aliases:
 
-* `todo` to edit my plain text todo file, located in Dropbox.
-* `restart-postgres` alias to restart Homebrew'd Postgres.
-* `gpg` alias for `gpg2`.
-* `install-missing-ruby` alias to upgrade Homebrew'd `ruby-build` and install
-  Ruby implicitly from `.ruby_version` file in current directory.
-* Add [Go workspace][go] to `PATH`.
-* Add [Node modules][nvm] to `PATH`.
+* [tmuxinator](https://github.com/tmuxinator/tmuxinator) for managing tmux
+  sessions
+* [asdf](https://github.com/asdf-vm/asdf) for managing versions of ruby, elixir,
+  etc.
 
-[go]: http://golang.org/doc/code.html#GOPATH
-[nvm]: https://github.com/creationix/nvm#manual-install
 
 Credits
 -------

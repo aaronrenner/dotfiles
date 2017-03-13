@@ -11,8 +11,17 @@ git_clone_or_update(){
 fancy_echo "Installing additional tools..."
 brew install reattach-to-user-namespace
 
-fancy_echo "Linking openssl in El Capitan"
-brew link openssl --force
+fancy_echo "Installing asdf (and build dependencies)"
+brew install automake autoconf openssl libyaml readline libxslt libtool unixodbc
+git_clone_or_update https://github.com/asdf-vm/asdf.git ~/.asdf
+~/.asdf/bin/asdf plugin-add erlang https://github.com/asdf-vm/asdf-erlang.git || true
+~/.asdf/bin/asdf plugin-add elixir https://github.com/asdf-vm/asdf-elixir.git || true
+~/.asdf/bin/asdf plugin-add ruby https://github.com/asdf-vm/asdf-ruby.git || true
+~/.asdf/bin/asdf plugin-add nodejs https://github.com/asdf-vm/asdf-nodejs.git || true
+
+fancy_echo "Installing ruby 2.4.0"
+~/.asdf/bin/asdf install ruby 2.4.0 || true
+~/.asdf/bin/asdf global ruby 2.4.0 || true
 
 fancy_echo "Installing tmuxinator"
 gem install tmuxinator
@@ -22,10 +31,3 @@ curl -fsS \
   "https://raw.githubusercontent.com/tmuxinator/tmuxinator/master/completion/tmuxinator.zsh" \
   -o ~/.bin/tmuxinator.zsh
 
-fancy_echo "Installing asdf (and build dependencies)"
-brew install automake autoconf openssl libyaml readline libxslt libtool unixodbc
-git_clone_or_update https://github.com/asdf-vm/asdf.git ~/.asdf
-~/.asdf/bin/asdf plugin-add erlang https://github.com/asdf-vm/asdf-erlang.git || true
-~/.asdf/bin/asdf plugin-add elixir https://github.com/asdf-vm/asdf-elixir.git || true
-~/.asdf/bin/asdf plugin-add ruby https://github.com/asdf-vm/asdf-ruby.git || true
-~/.asdf/bin/asdf plugin-add nodejs https://github.com/asdf-vm/asdf-nodejs.git || true
