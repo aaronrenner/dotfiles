@@ -1,5 +1,8 @@
 [user]
   name = Aaron Renner
   email = aaron.renner@gmail.com
+  signingkey = 603A6E7E
+[commit]
+  gpgsign = true
 [alias]
   lol = log --oneline --graph --all --decorate
