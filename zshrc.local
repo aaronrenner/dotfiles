@@ -16,3 +16,5 @@ test -s "$HOME/.asdf/completions/asdf.bash" && source ~/.asdf/completions/asdf.b
 # Leave commented out because otherwise laptop script will try to re-add it and
 # we're using asdf instead
 # eval "$(rbenv init - --no-rehash)"
+
+alias servedir='ruby -run -e httpd . -p 9091' # serve current dir files on port 9091
