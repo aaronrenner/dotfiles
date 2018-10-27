@@ -43,7 +43,7 @@ The majority of the laptop set up is automated with the
     mkdir ~/projects
     cd ~/projects
     git clone git://github.com/aaronrenner/dotfiles.git
-    ln -s ~/projects/dotfiles/.laptop.local
+    ln -s ~/projects/dotfiles/laptop.local ~/.laptop.local
 
 Then fetch the laptop script
 
