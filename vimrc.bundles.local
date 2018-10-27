@@ -1,3 +1,4 @@
 Plug 'tpope/vim-commentary'
-Plug 'elixir-lang/vim-elixir'
+Plug 'elixir-editors/vim-elixir'
 Plug 'jgdavey/tslime.vim'
+Plug 'andyl/vim-projectionist-elixir'

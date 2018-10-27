@@ -18,6 +18,17 @@ test -s "$HOME/.asdf/completions/asdf.bash" && source ~/.asdf/completions/asdf.b
 # eval "$(rbenv init - --no-rehash)"
 
 alias servedir='ruby -run -e httpd . -p 9091' # serve current dir files on port 9091
+export PATH="/usr/local/opt/mongodb@3.2/bin:$PATH"
+
+# Make IEx open work
+export ELIXIR_EDITOR="vim +__LINE__ __FILE__"
+
+# IEX shell history
+export ERL_AFLAGS="-kernel shell_history enabled"
+
+# Kerl Elixir build settings
+export KERL_CONFIGURE_OPTIONS="--without-javac"
+export KERL_BUILD_DOCS=no
 
 # Tmux syncing
 tmuxssh() {
@@ -32,3 +43,8 @@ tmuxssh() {
   tmux select-pane -t 0
   tmux set-window-option synchronize-panes on > /dev/null
 }
+
+# Mix clean and compile
+alias mcc='mix do clean, compile --warnings-as-errors'
+
+alias mux=tmuxinator
