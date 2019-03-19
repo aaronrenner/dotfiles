@@ -32,6 +32,11 @@ values."
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
    '(
+     rust
+     elm
+     ruby
+     clojure
+     ansible
      yaml
      html
      javascript
@@ -46,12 +51,11 @@ values."
      ;; better-defaults
      emacs-lisp
      git
-     ;; markdown
      ;; org
      (shell :variables
             shell-default-height 30
             shell-default-position 'bottom)
-     ;; spell-checking
+     spell-checking
      syntax-checking
      version-control
      elixir
@@ -307,7 +311,33 @@ executes.
  This function is mostly useful for variables that need to be set
 before packages are loaded. If you are unsure, you should try in setting them in
 `dotspacemacs/user-config' first."
+
+  ;; See https://thoughtbot.com/blog/no-newline-at-end-of-file
+  ;; and https://www.linuxquestions.org/questions/linux-software-2/emacs-adds-unwanted-newline-to-end-of-file-908280/
+  (setq require-final-newline t))
+
+;; From https://blog.binchen.org/posts/easy-indentation-setup-in-emacs-for-web-development.html
+(defun my-setup-indent (n)
+  ;; java/c/c++
+  (setq-local c-basic-offset n)
+  ;; web development
+  (setq-local coffee-tab-width n) ; coffeescript
+  (setq-local javascript-indent-level n) ; javascript-mode
+  (setq-local js-indent-level n) ; js-mode
+  (setq-local js2-basic-offset n) ; js2-mode, in latest js2-mode, it's alias of js-indent-level
+  (setq-local web-mode-markup-indent-offset n) ; web-mode, html tag in html file
+  (setq-local web-mode-css-indent-offset n) ; web-mode, css in html file
+  (setq-local web-mode-code-indent-offset n) ; web-mode, js code in html file
+  (setq-local css-indent-offset n) ; css-mode
   )
+
+(defun setup-tabs-spaces ()
+  (interactive)
+  (message "Setting up tabs/spaces!")
+  ;; use space instead of tab
+  (setq indent-tabs-mode nil)
+  ;; indent 2 spaces width
+  (my-setup-indent 2))
 
 (defun dotspacemacs/user-config ()
   "Configuration function for user code.
@@ -317,14 +347,26 @@ This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
     (setq web-mode-markup-indent-offset 2)
+    (setq javascript-indent-level 2)
+    (setq js2-basic-offset 2)
 
     ;; See https://github.com/syl20bnr/spacemacs/issues/9756#issuecomment-363436814
     (setq spacemacs-default-jump-handlers
           (remove 'evil-goto-definition spacemacs-default-jump-handlers))
 
+
+    (spacemacs/enable-transparency)
+    (spacemacs/toggle-maximize-frame-on)
+
     ;; Make underscore considered a "word" character
     ;; http://spacemacs.org/doc/FAQ.html#include-underscores-in-word-motions
     (add-hook 'elixir-mode-hook #'(lambda () (modify-syntax-entry ?_ "w")))
+
+    ;; prog-mode-hook requires emacs24+
+    (add-hook 'prog-mode-hook 'setup-tabs-spaces)
+    ;; a few major-modes does NOT inherited from prog-mode
+    (add-hook 'lua-mode-hook 'setup-tabs-spaces)
+    (add-hook 'web-mode-hook 'setup-tabs-spaces)
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
@@ -334,9 +376,10 @@ you should place your code here."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(evil-want-Y-yank-to-eol nil)
  '(package-selected-packages
    (quote
-    (yaml-mode smeargle orgit magit-gitflow helm-gitignore gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter evil-magit magit magit-popup git-commit ghub treepy graphql with-editor diff-hl flycheck-pos-tip pos-tip xterm-color shell-pop multi-term eshell-z eshell-prompt-extras esh-help web-mode tagedit slim-mode scss-mode sass-mode pug-mode helm-css-scss haml-mode emmet-mode web-beautify livid-mode skewer-mode simple-httpd json-mode json-snatcher json-reformat js2-refactor yasnippet multiple-cursors js2-mode js-doc coffee-mode mmm-mode markdown-toc markdown-mode gh-md ob-elixir flycheck-mix flycheck-credo flycheck alchemist company elixir-mode reveal-in-osx-finder pbcopy osx-trash osx-dictionary launchctl ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox spinner org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint indent-guide hydra hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation helm-themes helm-swoop helm-projectile helm-mode-manager helm-make projectile pkg-info epl helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu highlight elisp-slime-nav dumb-jump f dash s diminish define-word column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line helm avy helm-core popup async))))
+    (toml-mode racer flycheck-rust cargo rust-mode tern flyspell-correct-helm flyspell-correct auto-dictionary reformatter flycheck-elm elm-mode rvm ruby-tools ruby-test-mode rubocop rspec-mode robe rbenv rake minitest chruby bundler inf-ruby clj-refactor inflections edn paredit peg cider-eval-sexp-fu cider sesman queue clojure-mode jinja2-mode ansible-doc ansible yaml-mode smeargle orgit magit-gitflow helm-gitignore gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter evil-magit magit magit-popup git-commit ghub treepy graphql with-editor diff-hl flycheck-pos-tip pos-tip xterm-color shell-pop multi-term eshell-z eshell-prompt-extras esh-help web-mode tagedit slim-mode scss-mode sass-mode pug-mode helm-css-scss haml-mode emmet-mode web-beautify livid-mode skewer-mode simple-httpd json-mode json-snatcher json-reformat js2-refactor yasnippet multiple-cursors js2-mode js-doc coffee-mode mmm-mode markdown-toc markdown-mode gh-md ob-elixir flycheck-mix flycheck-credo flycheck alchemist company elixir-mode reveal-in-osx-finder pbcopy osx-trash osx-dictionary launchctl ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox spinner org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint indent-guide hydra hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation helm-themes helm-swoop helm-projectile helm-mode-manager helm-make projectile pkg-info epl helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu highlight elisp-slime-nav dumb-jump f dash s diminish define-word column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line helm avy helm-core popup async))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
