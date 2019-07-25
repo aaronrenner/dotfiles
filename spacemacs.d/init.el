@@ -48,6 +48,7 @@ This function should only modify configuration layer settings."
      ;; better-defaults
      emacs-lisp
      git
+     lsp
      markdown
      multiple-cursors
      ;; org
@@ -67,13 +68,13 @@ This function should only modify configuration layer settings."
    ;; To use a local version of a package, use the `:location' property:
    ;; '(your-package :location "~/path/to/your-package/")
    ;; Also include the dependencies as they will not be resolved automatically.
-   dotspacemacs-additional-packages '()
+   dotspacemacs-additional-packages '(exunit)
 
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
 
    ;; A list of packages that will not be installed and loaded.
-   dotspacemacs-excluded-packages '()
+   dotspacemacs-excluded-packages '(alchemist)
 
    ;; Defines the behaviour of Spacemacs when installing packages.
    ;; Possible values are `used-only', `used-but-keep-unused' and `all'.
@@ -474,4 +475,24 @@ This function is called at the very end of Spacemacs startup, after layer
 configuration.
 Put your configuration code here, except for variables that should be set
 before packages are loaded."
-  (spacemacs/enable-transparency))
+  (spacemacs/enable-transparency)
+  (setq lsp-ui-doc-enable nil)
+
+  (use-package lsp-mode
+    :commands lsp
+    :ensure t
+    :diminish lsp-mode
+    :hook
+    (elixir-mode . lsp)
+    :init
+    (add-to-list 'exec-path "~/projects/elixir-ls/release"))
+
+  (with-eval-after-load 'elixir-mode
+    (spacemacs/declare-prefix-for-mode 'elixir-mode
+      "mt" "tests" "testing related functionality")
+    (spacemacs/set-leader-keys-for-major-mode 'elixir-mode
+      "tu" 'exunit-verify-all-in-umbrella
+      "ta" 'exunit-verify-all
+      "tb" 'exunit-verify
+      "tr" 'exunit-rerun
+      "tt" 'exunit-verify-single)))
