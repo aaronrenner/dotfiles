@@ -495,4 +495,8 @@ before packages are loaded."
       "ta" 'exunit-verify-all
       "tb" 'exunit-verify
       "tr" 'exunit-rerun
-      "tt" 'exunit-verify-single)))
+      "tt" 'exunit-verify-single))
+
+  ;; Create a buffer-local hook to run lsp-format-buffer on save, only when we enable elixir-mode.
+  (add-hook 'elixir-mode-hook
+    (lambda () (add-hook 'before-save-hook 'lsp-format-buffer nil t))))
