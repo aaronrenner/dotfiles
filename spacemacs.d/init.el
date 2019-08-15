@@ -499,4 +499,6 @@ before packages are loaded."
 
   ;; Create a buffer-local hook to run lsp-format-buffer on save, only when we enable elixir-mode.
   (add-hook 'elixir-mode-hook
-    (lambda () (add-hook 'before-save-hook 'lsp-format-buffer nil t))))
+            (lambda ()
+              (add-hook 'before-save-hook 'lsp-format-buffer nil t)
+              (modify-syntax-entry ?_ "w"))))
