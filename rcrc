@@ -1,2 +1,0 @@
-DOTFILES_DIRS="$HOME/projects/dotfiles $HOME/projects/thoughtbot-dotfiles"
-EXCLUDES="README.md"
