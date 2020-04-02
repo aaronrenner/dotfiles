@@ -501,4 +501,9 @@ before packages are loaded."
   (add-hook 'elixir-mode-hook
             (lambda ()
               (add-hook 'before-save-hook 'lsp-format-buffer nil t)
-              (modify-syntax-entry ?_ "w"))))
+              (modify-syntax-entry ?_ "w")
+              (setq lsp-file-watch-ignored '("[/\\\]\\.git$" "[/\\\]node_modules$" "[/\\\]_build$" "[/\\\]deps$" "[/\\\].elixir_ls$"))))
+
+  (add-hook 'rust-mode-hook
+          (lambda ()
+            (add-hook 'before-save-hook 'rust-format-buffer nil t))))
