@@ -1,0 +1,16 @@
+#!/bin/bash
+set -e
+
+# These settings can be figured out by running
+#
+# dconf watch /
+#
+# And changing settings via the ui
+
+if [ -f "$HOME/.config/libinput-gestures.conf" ]; then
+  echo "Setting keyboard shortcuts"
+  dconf write /org/gnome/desktop/wm/keybindings/switch-to-workspace-up "['<Super>k']"
+  dconf write /org/gnome/desktop/wm/keybindings/switch-to-workspace-down "['<Super>j']"
+  dconf write /org/gnome/desktop/wm/keybindings/move-to-workspace-up "['<Shift><Super>k']"
+  dconf write /org/gnome/desktop/wm/keybindings/move-to-workspace-down "['<Shift><Super>j']"
+fi
