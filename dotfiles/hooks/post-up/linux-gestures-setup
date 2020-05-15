@@ -1,0 +1,32 @@
+#!/bin/bash
+set -e
+
+function main {
+    if is_tag_selected "linux-gestures" && (groups | grep -owqv "input") ; then
+      cat << EOF
+
+linux-gestures - Action required
+
+Add yourself to the input group with the following command
+
+      sudo gpasswd -a \$USER input
+
+And then restart your computer.
+
+EOF
+    fi
+}
+
+function is_tag_selected {
+    (
+        local tag=$1
+
+        if [[ -f $HOME/.rcrc ]]; then
+            . $HOME/.rcrc
+        fi
+
+        echo $TAGS | grep -owq "$tag"
+    )
+}
+
+main

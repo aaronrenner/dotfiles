@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Exec=libinput-gestures
+Hidden=false
+NoDisplay=false
+X-GNOME-Autostart-enabled=true
+Name[en_US]=libinput-gestures
+Name=libinput-gestures
+Comment[en_US]=Multitouch gestues
+Comment=Multitouch gestues
