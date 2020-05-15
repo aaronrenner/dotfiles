@@ -1,7 +1,23 @@
 #!/bin/bash
 set -e
 
-if [ -d "$HOME/.spacemacs.d" ] && [ ! -d "$HOME/.emacs.d" ] ; then
-  echo "Cloning spacemacs"
-  git clone -b develop https://github.com/syl20bnr/spacemacs ~/.emacs.d
-fi
+function main {
+    if is_tag_selected "spacemacs" && [ ! -d "$HOME/.emacs.d" ] ; then
+        echo "Cloning spacemacs"
+        git clone -b develop https://github.com/syl20bnr/spacemacs ~/.emacs.d
+    fi
+}
+
+function is_tag_selected {
+    (
+        local tag=$1
+
+        if [[ -f $HOME/.rcrc ]]; then
+            . $HOME/.rcrc
+        fi
+
+        echo $TAGS | grep -owq "$tag"
+    )
+}
+
+main
