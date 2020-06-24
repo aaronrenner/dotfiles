@@ -1,5 +1,10 @@
-autoload -Uz compinit && compinit
-
 # Asdf version manager
 test -s "$HOME/.asdf/asdf.sh" && source ~/.asdf/asdf.sh
-test -s "$HOME/.asdf/completions/asdf.bash" && source ~/.asdf/completions/asdf.bash
+
+if [[ $ASDF_DIR ]]; then
+    # append completions to fpath
+    fpath=(${ASDF_DIR}/completions $fpath)
+    # initialise completions with ZSH's compinit
+    autoload -Uz compinit
+    compinit
+fi
