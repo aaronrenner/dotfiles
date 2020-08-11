@@ -11,7 +11,7 @@ the contents for your machine.
 
 ```
 DOTFILES_DIRS="<path_to_this_repo>/dotfiles"
-TAGS=spacemacs git tmux
+TAGS="spacemacs git tmux"
 ```
 
 Once the `~/.rcrc` is in place, you can deploy the dotfiles
