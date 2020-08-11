@@ -1,7 +1,7 @@
 [user]
   name = Aaron Renner
   email = aaron.renner@gmail.com
-  signingkey = 603A6E7E
+  signingkey = B56D9351603A6E7E
 [commit]
   gpgsign = true
 [alias]
