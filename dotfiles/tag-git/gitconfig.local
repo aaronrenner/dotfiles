@@ -1,8 +1,16 @@
 [user]
   name = Aaron Renner
   email = aaron.renner@gmail.com
-  signingkey = B56D9351603A6E7E
+  signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBDrKSAiq7SPGEdGjzfKvNEScv0SEkaoFjDwTrTj0+mO
+
+[gpg]
+  format = ssh
+
+[gpg "ssh"]
+  program = "/opt/1Password/op-ssh-sign"
+
 [commit]
   gpgsign = true
+
 [alias]
   lol = log --oneline --graph --all --decorate
