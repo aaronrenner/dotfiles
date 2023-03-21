@@ -5,6 +5,7 @@
 .bundle
 .byebug_history
 .env
+.envrc
 .git/
 /bower_components/
 /log
